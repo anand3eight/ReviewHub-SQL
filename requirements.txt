@@ -1,0 +1,1 @@
+st-star-rating == 0.0.3
