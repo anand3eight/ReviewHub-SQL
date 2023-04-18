@@ -2,7 +2,7 @@ import sqlite3
 
 class DBSQLUser :
     def __init__(self):
-        self.conn = sqlite3.connect('/Users/anand/PycharmProjects/ReviewCloneSQL/DBOperations/ReviewProject.db')
+        self.conn = sqlite3.connect('DBOperations/ReviewProject.db')
         self.conn.execute("PRAGMA foreign_keys = 1")
         self.cur = self.conn.cursor()
         self.query = str()
