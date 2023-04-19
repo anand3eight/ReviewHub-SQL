@@ -69,12 +69,20 @@ class DBSQLUser :
         return resultlist
 
     def insertCompanyReview(self, companyReview):
-        self.query = f"""
-            INSERT INTO CompanyReview(User, CompanyName, Rating, Review)
-            VALUES('{companyReview['User']}', '{companyReview['Name']}', '{companyReview['Rating']}', '{companyReview['Review']}');"""
-        self.cur.execute(self.query)
-        self.conn.commit()
-        print('Inserted Company Review')
+        try : 
+            self.query = f"""
+                INSERT INTO CompanyReview(User, CompanyName, Rating, Review)
+                VALUES('{companyReview['User']}', '{companyReview['Name']}', '{companyReview['Rating']}', '{companyReview['Review']}');"""
+            self.cur.execute(self.query)
+            self.conn.commit()
+            print('Inserted Company Review')
+        except sqlite3.IntegrityError :
+            self.query = f"""
+                UPDATE CompanyReview SET Rating = '{companyReview['Rating']}', Review = '{companyReview['Review']}'
+                WHERE User = '{companyReview['User']}' AND CompanyName = '{companyReview['Name']}';"""
+            self.cur.execute(self.query)
+            self.conn.commit()
+            print('Inserted Company Review')
 
     def fetchCompanyReviews(self, companyName):
         self.query = f"""
@@ -151,12 +159,20 @@ class DBSQLUser :
         return resultlist
 
     def insertPlaceReview(self, placeReview):
-        self.query = f"""
-            INSERT INTO PlaceReview(User, PlaceName, Rating, Review)
-            VALUES('{placeReview['User']}', '{placeReview['Name']}', '{placeReview['Rating']}', '{placeReview['Review']}');"""
-        self.cur.execute(self.query)
-        self.conn.commit()
-        print('Inserted Place Review')
+        try :
+            self.query = f"""
+                INSERT INTO PlaceReview(User, PlaceName, Rating, Review)
+                VALUES('{placeReview['User']}', '{placeReview['Name']}', '{placeReview['Rating']}', '{placeReview['Review']}');"""
+            self.cur.execute(self.query)
+            self.conn.commit()
+            print('Inserted Place Review')
+        except sqlite3.IntegrityError :
+            self.query = f"""
+                UPDATE PlaceReview SET Rating = '{placeReview['Rating']}', Review = '{placeReview['Review']}'
+                WHERE User = '{placeReview['User']}' AND PlaceName = '{placeReview['Name']}';"""
+            self.cur.execute(self.query)
+            self.conn.commit()
+            print('Inserted Place Review')
 
     def fetchPlaceReviews(self, placeName):
         self.query = f"""
