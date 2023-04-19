@@ -67,9 +67,9 @@ class DBSQLUser :
             dc = {'User': x[0], 'Name': x[1], 'Address': x[2], 'Country': x[3], 'Phone' : x[4], 'Email' : x[5]}
             resultlist.append(dc)
         return resultlist
-
+    
     def insertCompanyReview(self, companyReview):
-        try : 
+        try :
             self.query = f"""
                 INSERT INTO CompanyReview(User, CompanyName, Rating, Review)
                 VALUES('{companyReview['User']}', '{companyReview['Name']}', '{companyReview['Rating']}', '{companyReview['Review']}');"""
@@ -158,6 +158,7 @@ class DBSQLUser :
             resultlist.append(dc)
         return resultlist
 
+    
     def insertPlaceReview(self, placeReview):
         try :
             self.query = f"""
